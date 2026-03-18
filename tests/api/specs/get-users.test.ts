@@ -3,15 +3,22 @@ import { client } from "../helpers/http-client";
 import {
   USER_FIELDS,
   LIST_RESPONSE_FIELDS,
+  EXPECTED_PAGE_ONE_RESPONSE,
 } from "../fixtures/user-payloads";
 
 describe("Users Retrieval", () => {
 
-  describe("browsing user lists", () => {
+  describe("retrieving user lists", () => {
     let res: AxiosResponse;
 
     beforeAll(async () => {
       res = await client.get("/users");
+    });
+
+    it("should return an exact match against the expected user list fixture", () => {
+      // Stripping _meta data that changes between requests before comparing
+      const { _meta, ...stableFields } = res.data;
+      expect(stableFields).toStrictEqual(EXPECTED_PAGE_ONE_RESPONSE);
     });
 
     it("should return a paginated list of users with pagination metadata", () => {
@@ -66,7 +73,8 @@ describe("Users Retrieval", () => {
       }
     });
 
-    // Validates that the avatar is a actual https not just a relative path, could be important scenario if Frontend is using/calling the API
+    // Validates that the avatar is a actual https not just a relative path, 
+    // could be important scenario if Frontend is using/calling the API
     it("should return each user's avatar as a fully qualified HTTPS URL", () => {
       for (const user of res.data.data) {
         expect(user.avatar).toMatch(/^https:\/\/.+\..+/);

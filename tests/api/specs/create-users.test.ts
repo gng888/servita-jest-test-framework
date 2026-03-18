@@ -74,7 +74,9 @@ describe("Users Creation", () => {
       expect(new Date(res.data.createdAt).toISOString()).toBe(res.data.createdAt);
     });
 
-    // The response should contain the submitted fields including the server assigned ones, technically any key value pairs can be passed in the response but we only want to validate the ones we expect
+    // The response should contain the submitted fields including the server assigned ones,
+    // technically any key value pairs can be passed in the response 
+    // but we only want to validate the ones we expect
     it("should not include unexpected fields in the response", () => {
       const allowedKeys = ["name", "job", "id", "createdAt", "_meta"];
       const returnedKeys = Object.keys(res.data);
