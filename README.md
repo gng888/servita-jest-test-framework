@@ -46,6 +46,7 @@ cp .env.example .env   # fill in API_BASE_URL and API_KEY
 | `playwright.config.ts` | Chromium default; Firefox project commented out (uncomment + install to run cross-browser) |
 | `jest.config.ts` | ts-jest preset, test roots, HTML reporter |
 | `tsconfig.json` | Shared TypeScript options |
+| `.nvmrc` | Pins Node.js version for nvm (`lts/*`) |
 | `.env` | Runtime secrets (git-ignored, see `.env.example`) |
 
 ### Environment Variables
@@ -88,6 +89,7 @@ npm test
 ├── jest.config.ts
 ├── tsconfig.json
 ├── package.json
+├── .nvmrc                               # pins Node.js to latest LTS via nvm
 ├── .env / .env.example
 │
 ├── tests/
@@ -117,7 +119,7 @@ npm test
 │       ├── helpers/
 │       │   └── http-client.ts                 # Axios client (base URL + API key)
 │       ├── fixtures/
-│       │   └── user-payloads.ts               # createUserPayload() factory + static fixtures
+│       │   └── user-payloads.ts               # createUserPayload() factory, static fixtures, expected response fixture
 │       ├── specs/
 │       │   ├── get-users.test.ts              # List, schema, by id, pagination
 │       │   └── create-users.test.ts           # Create, schema, formats, invalid
@@ -162,7 +164,7 @@ npm test
 
 | Spec | Covers |
 |---|---|
-| `get-users` | List (200, pagination), schema validation (types, non-empty strings, HTTPS avatars), get by id (200/404), pagination boundary |
+| `get-users` | Strict response equality against fixture, list (200, pagination), schema validation (types, non-empty strings, HTTPS avatars), get by id (200/404), pagination boundary |
 | `create-users` | Create (201, echoed fields, unique ids), schema validation (id string, ISO timestamp, no unexpected fields), name formats (empty, numeric, special chars, 256 chars), invalid bodies (bad string, numeric, truncated JSON → 400) |
 
 ---
@@ -186,8 +188,9 @@ npm test
 | **End-to-end data flow validation** | Captures name, price, and description at inventory → asserts they persist through cart → checkout overview. Validates data integrity, not just page loads. |
 | **Negative testing (intentional failures)** | Tests assert *correct* behaviour against broken accounts. Failures in the report expose each defect — demonstrates defect detection as a strategy. |
 | **Playwright runner over Jest+Playwright** | Playwright's runner has built-in parallelism, retries, tracing, video, and screenshots. Jest would need third-party adapters for all of this. Jest is kept for API tests where it fits. |
+| **Strict response fixture (`toStrictEqual`)** | `EXPECTED_PAGE_ONE_RESPONSE` captures the exact known API response. `_meta` (unstable promotional data) is destructured out before comparison. Catches any drift in seeded data that looser schema checks would miss. |
 | **Axios `validateStatus: () => true`** | 4xx/5xx responses are assertable without try/catch. Secrets loaded from `.env`. |
-| **CI** | Separate workflows for UI and API. Playwright retries twice in CI only. Reports uploaded as artefacts. |
+| **CI** | Separate workflows for UI and API. Actions pinned to v5 (Node.js 24 runtime). Playwright retries twice in CI only. Secrets injected as both `.env` and step-level env vars for reliability. Reports uploaded as artefacts. |
 
 ---
 
