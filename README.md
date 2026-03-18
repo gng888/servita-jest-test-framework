@@ -9,23 +9,19 @@ TypeScript test framework using **Playwright** for UI testing and **Jest + Axios
 
 ## Prerequisites
 
-- Node.js v18+ (managed via **nvm** — see below)
+- [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) (recommended for managing Node.js versions)
+- Node.js v18+
 - npm v9+
 - ReqRes API key – sign up free at [app.reqres.in/api-keys](https://app.reqres.in/api-keys)
 
 ### Node Version Management (nvm)
 
-This repo includes an `.nvmrc` file that pins the project to the latest Node.js LTS release. If you don't have nvm installed, follow the [official install guide](https://github.com/nvm-sh/nvm#installing-and-updating).
+This repo includes an `.nvmrc` file that pins the project to the latest Node.js LTS release. Install [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) then run:
 
 ```bash
-# Install the version specified in .nvmrc
 nvm install
-
-# Switch to it (if you already have it installed)
 nvm use
 ```
-
-Running either command from the repo root will read `.nvmrc` automatically. To have nvm switch versions every time you `cd` into the project, add the [shell integration snippet](https://github.com/nvm-sh/nvm#deeper-shell-integration) to your `.zshrc` / `.bashrc`.
 
 ---
 
