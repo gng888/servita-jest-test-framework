@@ -135,7 +135,7 @@ test.describe("Additional journeys", () => {
     }) => {
       await inventory.verifyOnInventory();
       await expect(inventory.productCards).toHaveCount(6);
-      // Every product should start in an un-carted state with Add to cart visible
+      // Every product should start in an empty cart state with Add to cart visible
       await inventory.verifyAllProductsShowAddToCart();
     });
 

@@ -41,7 +41,7 @@ export class CheckoutPage extends BasePage {
     await expect(this.headerTitle).toHaveText("Checkout: Your Information");
   }
 
-  // Accepts a ShippingInfo object so callers can pass generateShipping() directly
+  // Accepts a ShippingInfo object generateShipping() can be passed directly
   // or a specific literal { first: "", last: "Doe", zip: "12345" } for validation tests.
   async enterShippingInfo(shipping: {
     first: string;
