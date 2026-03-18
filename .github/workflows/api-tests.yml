@@ -31,8 +31,17 @@ jobs:
           echo "API_BASE_URL=${{ secrets.API_BASE_URL || 'https://reqres.in/api' }}" >> .env
           echo "API_KEY=${{ secrets.API_KEY }}" >> .env
 
+      - name: Verify secrets are available
+        run: |
+          if [ -z "${{ secrets.API_KEY }}" ]; then
+            echo "::warning::API_KEY secret is empty – check repository Settings > Secrets"
+          fi
+
       - name: Run API tests
         run: npm run test:api
+        env:
+          API_BASE_URL: ${{ secrets.API_BASE_URL || 'https://reqres.in/api' }}
+          API_KEY: ${{ secrets.API_KEY }}
 
       - name: Upload Jest HTML report
         if: always()
