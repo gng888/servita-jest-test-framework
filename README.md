@@ -64,6 +64,7 @@ cp .env.example .env   # fill in API_BASE_URL and API_KEY
 # UI (Chromium)
 npm run test:ui                   # headless
 npm run test:ui:headed            # visible browser (single worker)
+npm run test:ui:debug             # headed with Playwright Inspector (single worker)
 npm run test:ui:auth              # @auth only
 npm run test:ui:checkout-single   # @checkout-single only
 npm run test:ui:checkout-multiple # @checkout-multiple only

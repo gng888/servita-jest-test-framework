@@ -11,7 +11,7 @@ test.describe("Additional journeys", () => {
   });
 
   test.describe("Sorting products", () => {
-    test("should change product order when sorting A-Z and low-to-high", async ({
+    test.only("should change product order when sorting A-Z and low-to-high", async ({
       inventory,
     }) => {
       await inventory.verifyOnInventory();

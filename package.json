@@ -5,6 +5,7 @@
   "scripts": {
     "test": "npm run test:ui && npm run test:api",
     "test:ui": "npx playwright test",
+    "test:ui:debug": "npx playwright test --headed --debug --workers=1",
     "test:ui:headed": "npx playwright test --headed --workers=1",
     "test:ui:auth": "npx playwright test --grep @auth",
     "test:ui:checkout-single": "npx playwright test --grep @checkout-single",
