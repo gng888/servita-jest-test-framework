@@ -74,10 +74,6 @@ export const EXPECTED_PAGE_ONE_RESPONSE = {
       avatar: "https://reqres.in/img/faces/6-image.jpg",
     },
   ],
-  support: {
-    url: "https://contentcaddy.io?utm_source=reqres&utm_medium=json&utm_campaign=referral",
-    text: "Tired of writing endless social media content? Let Content Caddy generate it for you.",
-  },
 } as const;
 
 // Fixture: shape we expect per user in GET /users – used to assert the API returns what we need.

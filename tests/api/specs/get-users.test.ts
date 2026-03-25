@@ -16,8 +16,9 @@ describe("Users Retrieval", () => {
     });
 
     it("should return an exact match against the expected user list fixture", () => {
-      // Stripping _meta data that changes between requests before comparing
-      const { _meta, ...stableFields } = res.data;
+      // Strip _meta and support (both contain promotional content that rotates between requests)
+      const { _meta, support, ...stableFields } = res.data;
+      // Deep strict comparison – checks keys, values, types, and array order against the fixture
       expect(stableFields).toStrictEqual(EXPECTED_PAGE_ONE_RESPONSE);
     });
 
